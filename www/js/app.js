@@ -10,14 +10,19 @@ angular.module('starter', ['ionic', 'firebase', 'ngCordova'])
 			return $firebaseArray(itemsRef);
 		}])
 
-		.controller('ListCtrl', function ($scope, $ionicListDelegate, Items) {
+		.controller('ListCtrl', function ($scope, $ionicListDelegate, $cordovaDialogs, Items) {
 			$scope.items = Items;
 
 			$scope.addItem = function () {
-				var name = prompt('What do you need to buy?');
-				if (name) {
-					$scope.items.$add({name: name});
-				}
+				$cordovaDialogs.prompt('What do you need to buy?', 'Grocery Keeper', ['Cancel', 'Add'], '')
+					.then(function (result) {
+						if (result.buttonIndex == 2) {
+							$scope.items.$add({
+								'name': result.input1
+							});
+						}
+					});
+
 			};
 
 			$scope.purchaseItem = function (item) {

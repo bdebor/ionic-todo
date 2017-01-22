@@ -6,4 +6,5 @@ platforms/
 plugins/
 
 .idea/
+.idea/workspace.xml
 www/js/parameters.js
