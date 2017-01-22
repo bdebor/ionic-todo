@@ -5,6 +5,22 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 
+.controller('ListCtrl', function($scope) {
+	$scope.items = [];
+
+	$scope.addItem = function () {
+		var name = prompt('What do you need to buy?');
+		if (name) {
+			$scope.items.push({name: name});
+		}
+	};
+
+	$scope.purchaseItem = function(item) {
+		$scope.item = item;
+		$scope.item['status'] = 'purchased';
+		$ionicListDelegate.closeOptionButtons();
+	};
+	})
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
